@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from "@material-ui/core/styles/index";
 import Typography from '@material-ui/core/Typography';
-
 const styles = theme => ({
     root: {
-       padding:'3%'
+       padding:'3%',
+        maxHeight:'200px'
 
     },
 });
@@ -18,7 +18,7 @@ class NoteItem extends  React.Component{
         return(
          <Paper className={this.props.classes.root}>
              <Typography component="p">
-                 {this.props.note.slice(0,100)}
+                 {this.props.note}
              </Typography>
          </Paper>
         );

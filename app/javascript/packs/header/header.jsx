@@ -38,36 +38,55 @@ const styles = theme => ({
     toolbar: theme.mixins.toolbar,
 });
 
-function ClippedDrawer(props) {
-    const { classes } = props;
+class  ClippedDrawer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {notes:[]};
+        this.add_notes=this.add_notes.bind(this)
+        // this.inputBox = React.createRef();
+    }
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="absolute" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="title" color="inherit" noWrap>
-                        NoteTaker
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <div className={classes.toolbar} />
-                <List></List>
-                <Divider />
-                <List></List>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <SimpleExpansionPanel />
-                <NoteList />
-            </main>
-        </div>
-    );
+    add_notes(note){
+        this.setState(prevState => (
+            // prevState.push(note)
+            {
+            notes: prevState.notes.concat([note])
+        }));
+        console.log(this.state.notes)
+
+    }
+
+    render() {
+        console.log(this.state.notes)
+        return (
+            <div className={this.props.classes.root}>
+                <AppBar position="absolute" className={this.props.classes.appBar}>
+                    <Toolbar>
+                        <Typography variant="title" color="inherit" noWrap>
+                            NoteTaker
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: this.props.classes.drawerPaper,
+                    }}
+                >
+                    <div className={this.props.classes.toolbar}/>
+                    <List></List>
+                    <Divider/>
+                    <List></List>
+                </Drawer>
+                <main className={this.props.classes.content}>
+                    <div className={this.props.classes.toolbar}/>
+                    <SimpleExpansionPanel note_action={this.add_notes} />
+                    <NoteList notes={this.state.notes}/>
+                </main>
+            </div>
+        );
+
+    }
 }
 
 ClippedDrawer.propTypes = {
