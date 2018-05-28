@@ -35,6 +35,9 @@ class SimpleExpansionPanel extends React.Component{
     }
     get_note(e){
      this.props.note_action(this.state.value)
+        this.setState({
+            value:""
+        })
     }
 
     handleChange(e){
